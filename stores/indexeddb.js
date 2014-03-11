@@ -20,7 +20,7 @@ function db(op, fn){
   };
   req.onupgradeneeded = function(){
     // First time setup: create an empty object store
-    openreq.result.createObjectStore('stor');
+    req.result.createObjectStore('stor');
   };
   req.onsuccess = function() {
     source = req.result;

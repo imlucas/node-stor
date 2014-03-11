@@ -7,8 +7,7 @@ Figure out the best option for storing things in the browser and do it.
 ## Example
 ```
 // @todo: add a not ridiculous example
-var stor = require('stor');
-stor.set('actor', {username: 'yolo17'}, function(err){
+var stor = require('stor/stor.set('actor', {username: 'yolo17'}, function(err){
   stor.get('actor', function(err, actor){
     console.log(actor);
   });
