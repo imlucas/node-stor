@@ -13,9 +13,12 @@ function prostrate(source){
       }
       res = source[method].apply(source, args);
 
-      if(transform.after){
-        res = transform.after(res);
+      try{
+        if(transform.after){
+          res = transform.after(res);
+        }
       }
+      catch(e){}
       fn(null, res);
     };
   };
