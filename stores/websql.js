@@ -13,9 +13,12 @@ function run(){
     sql = args.shift(),
     fn = args.pop();
 
-    db.transaction(function(t){
-      t.executeSql(sql, args, fn, null);
-    });
+  if(!binding){
+    return fn(new Error('store `websql` not supported by this browser'));
+  }
+  db.transaction(function(t){
+    t.executeSql(sql, args, fn, null);
+  });
 }
 
 module.exports = {

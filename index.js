@@ -6,6 +6,7 @@ module.exports.fs = require('./stores/fs');
 module.exports.indexeddb = require('./stores/indexeddb');
 module.exports.localstorage = require('./stores/localstorage');
 module.exports.websql = require('./stores/websql');
+module.exports.names = Object.keys(module.exports);
 
 ['indexeddb', 'localstorage'].map(function(name){
   var store = module.exports[name];

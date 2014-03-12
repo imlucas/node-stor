@@ -1,28 +1,26 @@
 'use strict';
 
-require('debug').enable('*');
-
 var stor = require('../'),
   assert = require('assert');
 
 describe('stor', function(){
-  describe('fs', function(){
+  describe.skip('fs', function(){
     before(function(done){
       stor.fs.get('prime-all_the-fs', function(){
         done();
       });
     });
-    var secret = 'console.log("hi there.  "' + Math.random() + ')';
 
+    var secret = new Date().toString();
     it('should read', function(done){
-      stor.fs.get('hello.js', function(err, data){
+      stor.fs.get('today', function(err, data){
         if(err) return done(err);
         done();
       });
     });
 
     it('should write', function(done){
-      stor.fs.set('hello.js', secret, function(err, data){
+      stor.fs.set('today', secret, function(err, data){
         if(err) return done(err);
         assert((data instanceof Blob));
 
@@ -31,14 +29,14 @@ describe('stor', function(){
     });
 
     it('should remove', function(done){
-      stor.fs.remove('hello.js', function(err, data){
+      stor.fs.remove('today', function(err, data){
         if(err) return done(err);
         done();
       });
     });
   });
 
-  describe('indexeddb', function(){
+  describe.skip('indexeddb', function(){
     var secret = new Date().toString();
 
     it('should read', function(done){

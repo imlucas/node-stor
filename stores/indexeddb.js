@@ -6,6 +6,9 @@ var indexedDB = window.indexedDB || window.webkitIndexedDB ||
 // Wrapper function that handles creating or acquiring the object store
 // if it hasn't been already.
 function db(op, fn){
+  if(!indexedDB){
+    return fn(new Error('store `indexeddb` not supported by this browser'));
+  }
   if(typeof op === 'function'){
     fn = op;
     op = 'readwrite';

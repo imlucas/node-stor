@@ -7,7 +7,9 @@ var requestFileSystem = window.requestFileSystem || window.webkitRequestFileSyst
   source = null;
 
 function check(fn){
-  if(!requestFileSystem) return fn(new Error('requestFileSystem not supported by this browser'));
+  if(!requestFileSystem){
+    return fn(new Error('store `fs` not supported by this browser'));
+  }
 
   if(source !== null){
     return fn(null, source);
