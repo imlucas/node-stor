@@ -23,6 +23,7 @@ function run(){
 
 module.exports = {
   binding: binding,
+  ns: 'stor',
   get: function(key, fn){
     run('SELECT * FROM stor WHERE key = ?', key, function(_, res){
       var rows = res.rows;

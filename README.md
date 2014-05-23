@@ -35,6 +35,29 @@ position `n`.
 
 Manually switch to a different backend
 
+### stor.use(`name`).adapter(`adapter`, `ns`)
+
+Get an adapter for your framework of choice.
+
+## Adapters
+
+### Backbone
+
+```javascript
+var Backbone = require('backbone');
+var sessionStorage = require('stor').use('session');
+var historyBackend = sessionStorage.adapter('backbone', 'history');
+var History = Backbone.Collection.extend({
+  sync: historyBackend.sync
+});
+```
+
+## Todo
+
+- [ ] proper api for applying partial updates like Backbone's patch method.
+- [ ] id generation
+- [ ] namespace support in all stores translated where needed (eg localstorage -> use prefix, indexeddb -> use table name)
+
 ## License
 
 MIT

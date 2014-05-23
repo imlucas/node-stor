@@ -28,6 +28,8 @@ var proxy = prostrate(window.localStorage);
 
 module.exports = {
   binding: window.localStorage,
+  ns: 'stor',
+  name: 'localstorage',
   get: proxy('getItem', {after: JSON.parse}),
   set: proxy('setItem', {before: JSON.stringify}),
   remove: proxy('removeItem'),

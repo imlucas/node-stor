@@ -5,6 +5,7 @@ var debug = require('debug')('stor'),
 module.exports.fs = require('./stores/fs');
 module.exports.indexeddb = require('./stores/indexeddb');
 module.exports.localstorage = require('./stores/localstorage');
+module.exports.session = require('./stores/session');
 module.exports.websql = require('./stores/websql');
 module.exports.names = Object.keys(module.exports);
 
@@ -21,13 +22,21 @@ module.exports.names = Object.keys(module.exports);
   }
 });
 
+var adapters = {
+  'backbone': require('./adapters/backbone')
+};
+
+module.exports.adapter = function(name, ns){
+  return adapters[name](current, ns);
+};
+
 module.exports.use = function(name, fn){
   if(!available[name]){
-    return fn(new Error(name + ' is not available'));
+    return new Error(name + ' is not available');
   }
   debug('switched store to ' + name);
   current = available[name];
-  fn(null, current);
+  return current;
 };
 
 ['get', 'set', 'remove', 'key', 'clear', 'length'].map(function(method){

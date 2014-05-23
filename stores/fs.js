@@ -1,5 +1,3 @@
-"use strict";
-
 var debug = require('debug')('stor:fs');
 
 var requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem ||
@@ -47,6 +45,8 @@ function noop(fn){fn(undefined, undefined);}
 
 module.exports = {
   binding: requestFileSystem,
+  ns: '',
+  name: 'fs',
   get: function(key, fn){
     check(function(err, fs){
       if(err) return fn(err);

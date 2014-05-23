@@ -1,5 +1,3 @@
-'use strict';
-
 var stor = require('../'),
   assert = require('assert');
 
@@ -85,6 +83,30 @@ describe('stor', function(){
     });
   });
 
+  describe('session', function(){
+    var secret = new Date().toString();
+
+    it('should read', function(done){
+      stor.session.get('today', function(err, data){
+        if(err) return done(err);
+        done();
+      });
+    });
+    it('should write', function(done){
+      stor.session.set('today', secret, function(err, data){
+        if(err) return done(err);
+
+        done();
+      });
+    });
+    it('should remove', function(done){
+      stor.session.remove('today', function(err, data){
+        if(err) return done(err);
+        done();
+      });
+    });
+  });
+
   describe('websql', function(){
     var secret = new Date().toString();
 
@@ -133,6 +155,19 @@ describe('stor', function(){
       stor.remove('today', function(err, data){
         if(err) return done(err);
         done();
+      });
+    });
+  });
+
+  describe('adapters', function(){
+    describe('backbone', function(){
+      var testBackend = stor.adapter('backbone', 'test');
+
+      it('should be using the right store', function(){
+        assert.equal(testBackend.store.name, 'localstorage');
+      });
+      it('should have the right ns', function(){
+        assert.equal(testBackend.ns, 'test');
       });
     });
   });

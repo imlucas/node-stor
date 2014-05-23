@@ -15,15 +15,15 @@ function db(op, fn){
   }
 
   if(source !== null){
-    return fn(null, source.transaction('stor', op).objectStore('stor'));
+    return fn(null, source.transaction(module.exports.prefix, op).objectStore(module.exports.prefix));
   }
-  var req = indexedDB.open('stor', 1);
+  var req = indexedDB.open(module.exports.prefix, 1);
   req.onerror = function(e){
     fn(e);
   };
   req.onupgradeneeded = function(){
     // First time setup: create an empty object store
-    req.result.createObjectStore('stor');
+    req.result.createObjectStore(module.exports.prefix);
   };
   req.onsuccess = function() {
     source = req.result;
@@ -33,6 +33,8 @@ function db(op, fn){
 
 module.exports = {
   binding: indexedDB,
+  ns: 'stor',
+  name: 'indexeddb',
   get: function(key, fn){
     db('readonly', function(err, store){
       var req = store.get(key);
