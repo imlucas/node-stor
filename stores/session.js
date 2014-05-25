@@ -14,11 +14,11 @@ function prostrate(source){
         args[1] = transform.before(args[1]);
       }
 
-      if(args[0] && ['removeItem', 'getItem', 'setItem'].indexOf(method)){
+      if(args[0] && ['removeItem', 'getItem', 'setItem'].indexOf(method) > -1){
         var id = args[0];
         id = id.toString();
         if(id.indexOf(sesh.ns) === -1){
-          id = sesh.ns + '' + id;
+          id = sesh.ns + '~' + id;
           debug('applied ns', id);
         }
         args[0] = id;
