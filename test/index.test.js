@@ -169,6 +169,10 @@ describe('stor', function(){
       it('should have the right ns', function(){
         assert.equal(testBackend.ns, 'test');
       });
+
+      it('should have a fluent api', function(){
+        stor.use('session').adapter('backbone', 'test');
+      });
     });
   });
 });

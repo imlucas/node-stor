@@ -9,7 +9,7 @@ module.exports.session = require('./stores/session');
 module.exports.websql = require('./stores/websql');
 module.exports.names = Object.keys(module.exports);
 
-['indexeddb', 'localstorage'].map(function(name){
+['indexeddb', 'localstorage', 'session'].map(function(name){
   var store = module.exports[name];
   debug('checking store binding for ' + name);
   if(!store.binding){
@@ -30,12 +30,13 @@ module.exports.adapter = function(name, ns){
   return adapters[name](current, ns);
 };
 
-module.exports.use = function(name, fn){
+module.exports.use = function(name){
   if(!available[name]){
-    return new Error(name + ' is not available');
+    throw new Error(name + ' is not available');
   }
   debug('switched store to ' + name);
   current = available[name];
+  current.adapter = module.exports.adapter;
   return current;
 };
 
